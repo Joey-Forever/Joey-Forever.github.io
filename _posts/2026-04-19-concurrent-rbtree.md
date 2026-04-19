@@ -40,13 +40,17 @@ I went the other way.
 
 The tree in `ConcurrentRBTree` is **an approximate index, not the source of truth.** Alongside it, I maintain a **sorted singly-linked list** threaded through all data nodes in key order, with acquire/release semantics on the `next_` pointers. Both structures point at the same underlying nodes:
 
-```
-            red-black tree (relaxed atomics — approximate index)
-                              |
-                              v
-header → [10] → [20] → [30] → [50] → [70] → tailer
-     sorted singly-linked list (acquire/release — ground truth)
-```
+<p align="center">
+  <img src="/assets/rbtree.svg" alt="Red-Black Tree — approximate index with relaxed-atomic child pointers" width="720"/>
+</p>
+
+<p align="center">
+  <img src="/assets/sorted_list.svg" alt="Sorted Linked List — authoritative order with acquire/release next_ pointers" width="800"/>
+</p>
+
+<p align="center">
+  <em>Two indexes, one set of nodes: every blue box in the list and every colored circle in the tree is the same physical <code>Node*</code> in memory.</em>
+</p>
 
 Why this works: **rotations do not change sorted order.** If a reader's tree descent lands on a predecessor that is *close* to the right position but off by a few slots (because a rotation just happened), walking the linked list forward from that predecessor will still find the correct target in *O(1)* expected steps.
 
