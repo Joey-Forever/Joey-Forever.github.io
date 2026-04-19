@@ -1,0 +1,26 @@
+title: "Joey's Notes on Concurrency and Performance"
+author: Joey
+description: >-
+  Writings on concurrent data structures, C++ performance engineering,
+  and systems programming.
+github_username: Joey-Forever
+url: "https://joey-forever.github.io"
+baseurl: ""
+
+theme: minima
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+minima:
+  skin: auto
+  social_links:
+    github: Joey-Forever
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
