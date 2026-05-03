@@ -175,7 +175,7 @@ accessor.erase(42);
 
 Compile with `-std=c++17 -DNDEBUG -I/path/to/include`. Nothing else.
 
-The `Accessor` doubles as an epoch guard for an internal `NodeRecycler` that is directly modeled on `folly::ConcurrentSkipList::NodeRecycler`: erased nodes stay alive until the last live `Accessor` releases its reference. Same weak-consistency guarantees as Folly — readers may see stale data but never corrupted state.
+The `Accessor` doubles as an epoch guard for an internal `NodeRecycler` that is directly modeled on `folly::ConcurrentSkipList::NodeRecycler`: erased nodes stay alive until the last live `Accessor` releases its reference.
 
 ---
 
